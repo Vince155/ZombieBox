@@ -16,7 +16,7 @@ public class ToughenedEnemy extends  Enemy {
         health = 10f;
     }
 
-    public void updateEnemy() {
+    public void updateEnemy(EnemyBulletManager enemyBulletManager) {
 
     }
     public void isHit() {

@@ -27,11 +27,13 @@ public class EnemyManager{
         enemyArrayList.add(enemy);
     }
 
+    public void remove(Enemy enemy) { enemyArrayList.remove(enemy); }
+
     public void update(BulletManager bulletManager, PlayerManager playerManager, EnemyBulletManager enemyBulletManager) {
         m_healthTimer -= Gdx.graphics.getDeltaTime();
 
         for (int i = 0; i < enemyArrayList.size(); ++i) {
-            enemyArrayList.get(i).updateEnemy();
+            enemyArrayList.get(i).updateEnemy(enemyBulletManager);
             enemyArrayList.get(i).moveTowards(enemyArrayList.get(i).getSpeed(), playerManager.getActivePlayer());
             enemyArrayList.get(i).rotateTowards(playerManager.getActivePlayer());
             if (!m_world.getBoundingRectangle().overlaps(enemyArrayList.get(i).getBoundingRectangle())) {

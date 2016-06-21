@@ -19,7 +19,7 @@ public class GameScreen extends Game implements Screen {
     static float WORLD_HEIGHT = 1000f;
     private final float CAM_SIZE = 300f;
 
-    private float delta;
+    private float distance;
 
     private OrthographicCamera m_cam;
 
@@ -31,10 +31,13 @@ public class GameScreen extends Game implements Screen {
     private EnemyManager enemyManager;
     private PlayerManager playerManager;
     private EnemyBulletManager enemyBulletManager;
+    private HealthBonusManager healthBonusManager;
 
     private float m_basicSpawnTimer;
     private float m_bigSpawnTimer;
     private float m_shootingSpawnTimer;
+
+    private float m_healthTimer;
 
     private float m_levelTimer;
 
@@ -56,12 +59,15 @@ public class GameScreen extends Game implements Screen {
         m_bigSpawnTimer = 5f;
         m_shootingSpawnTimer = 10f;
 
+        m_healthTimer = 20f;
+
         m_levelTimer = 125f;
 
         bulletManager = new BulletManager(m_mapSprite);
         enemyManager = new EnemyManager(m_mapSprite);
         playerManager = new PlayerManager(m_cam);
         enemyBulletManager = new EnemyBulletManager(m_mapSprite);
+        healthBonusManager = new HealthBonusManager(m_mapSprite);
     }
 
     public void create() {
@@ -74,29 +80,53 @@ public class GameScreen extends Game implements Screen {
         bulletManager.update();
         enemyBulletManager.update();
         enemyManager.update(bulletManager, playerManager, enemyBulletManager);
+        healthBonusManager.update();
 
         m_basicSpawnTimer -= Gdx.graphics.getDeltaTime();
         m_bigSpawnTimer -= Gdx.graphics.getDeltaTime();
         m_shootingSpawnTimer -= Gdx.graphics.getDeltaTime();
         m_levelTimer -= Gdx.graphics.getDeltaTime();
+        m_healthTimer -= Gdx.graphics.getDeltaTime();
 
         if (m_basicSpawnTimer <= 0) {
             float width = MathUtils.random(0, 1000f);
-            float height = MathUtils.random(0,1000f);
+            float height = MathUtils.random(0, 1000f);
+            float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
+            playerManager.getActivePlayer().getY() - height);
+
             enemyManager.add(new BasicEnemy(width, height));
+            if(distance < 30f) {
+                enemyManager.remove(new BasicEnemy(width, height));
+            }
             m_basicSpawnTimer = 1f;
         }
         if(m_bigSpawnTimer <= 0) {
             float width = MathUtils.random(0, 1000f);
             float height = MathUtils.random(0, 1000f);
+            float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
+                    playerManager.getActivePlayer().getY() - height);
             enemyManager.add(new BigEnemy(width, height));
+            if(distance < 30f) {
+                enemyManager.remove(new BigEnemy(width, height));
+            }
             m_bigSpawnTimer = 5f;
         }
         if(m_shootingSpawnTimer <= 0) {
             float width = MathUtils.random(0, 1000f);
             float height = MathUtils.random(0, 1000f);
+            float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
+                    playerManager.getActivePlayer().getY() - height);
             enemyManager.add(new ShootingEnemy(width, height));
+            if(distance < 30f) {
+                enemyManager.remove(new ShootingEnemy(width, height));
+            }
             m_shootingSpawnTimer = 10f;
+        }
+        if(m_healthTimer <= 0) {
+            float width = MathUtils.random(0, 1000f);
+            float height = MathUtils.random(0, 1000f);
+            healthBonusManager.add(new HealthBonus(width, height));
+            m_healthTimer = 20f;
         }
 
         if(playerManager.gameOver()) {
@@ -121,6 +151,7 @@ public class GameScreen extends Game implements Screen {
         bulletManager.render(m_batch);
         enemyBulletManager.render(m_batch);
         enemyManager.render(m_batch);
+        healthBonusManager.render(m_batch);
         playerManager.render(m_batch);
         m_batch.end();
     }

@@ -25,12 +25,12 @@ public class ShootingEnemy extends Enemy {
         m_enemyBulletManager = new EnemyBulletManager(world);
     }
 
-    public void updateEnemy() {
+    public void updateEnemy(EnemyBulletManager enemyBulletManager) {
         m_bulletConstant = Gdx.graphics.getDeltaTime() / 2;
         m_bulletTimer = m_bulletTimer - m_bulletConstant;
         if(m_bulletTimer <= 0.0) {
             EnemyBullet b = new EnemyBullet(getX() + (getWidth() / 2f), getY(), getRotation());
-            m_enemyBulletManager.add(b);
+            enemyBulletManager.add(b);
             m_bulletTimer = 5;
             Sound basicGunShot = Gdx.audio.newSound(Gdx.files.internal("gunshot.wav"));
             basicGunShot.play(0.01f);

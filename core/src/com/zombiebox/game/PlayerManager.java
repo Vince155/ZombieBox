@@ -15,10 +15,6 @@ public class PlayerManager {
     private Player m_player;
     private Sprite m_world;
 
-    private float m_healthTimer;
-    private HealthBonusManager m_healthBonusManager;
-    private HealthBonus m_healthBonus;
-
     static float WORLD_WIDTH = 1000f;
     static float WORLD_HEIGHT = 1000f;
 
@@ -30,20 +26,12 @@ public class PlayerManager {
     private BitmapFont font;
     private OrthographicCamera m_cam;
 
-    private EnemyBulletManager m_enemyBulletManager;
-
     public PlayerManager(OrthographicCamera cam) {
         m_player = new Player(cam);
         m_world = new Sprite(new Texture("space.jpg"));
 
-        m_healthBonusManager = new HealthBonusManager(m_world);
-
-        m_healthTimer = 20f;
-
         width = MathUtils.random(0f, 1000f);
         height = MathUtils.random(0f, 1000f);
-
-        m_healthBonus = new HealthBonus(width, height);
 
         m_world.setPosition(0f, 0f);
         m_world.setSize(WORLD_WIDTH, WORLD_HEIGHT);
@@ -55,15 +43,6 @@ public class PlayerManager {
     }
 
     public void update(BulletManager bulletManager) {
-        m_healthBonusManager.update();
-        m_healthTimer -= Gdx.graphics.getDeltaTime();
-        if(m_healthTimer <= 0) {
-            m_healthBonusManager.add(m_healthBonus);
-            m_healthTimer = 20f;
-            width = MathUtils.random(0f,1000f);
-            height = MathUtils.random(0f, 1000f);
-        }
-
         m_player.update(bulletManager);
     }
 

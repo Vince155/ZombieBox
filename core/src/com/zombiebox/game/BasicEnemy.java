@@ -20,7 +20,7 @@ public class BasicEnemy extends Enemy {
         speed = 50f;
     }
 
-    public void updateEnemy() {
+    public void updateEnemy(EnemyBulletManager enemyBulletManager) {
 
     }
 

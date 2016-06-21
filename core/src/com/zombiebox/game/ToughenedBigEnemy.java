@@ -16,7 +16,7 @@ public class ToughenedBigEnemy extends  Enemy {
         speed = 25f;
     }
 
-    public void updateEnemy() {
+    public void updateEnemy(EnemyBulletManager enemyBulletManager) {
 
     }
 

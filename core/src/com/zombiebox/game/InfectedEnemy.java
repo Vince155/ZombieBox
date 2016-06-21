@@ -16,7 +16,7 @@ public class InfectedEnemy extends Enemy {
         speed = 90f;
     }
 
-    public void updateEnemy() {
+    public void updateEnemy(EnemyBulletManager enemyBulletManager) {
 
     }
     public void isHit() {

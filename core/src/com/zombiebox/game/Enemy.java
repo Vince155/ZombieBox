@@ -10,7 +10,7 @@ public abstract class Enemy extends Sprite {
     public Enemy(Texture texture) {
         super(texture);
     }
-    public abstract void updateEnemy();
+    public abstract void updateEnemy(EnemyBulletManager enemyBulletManager);
     public abstract void isHit();
     public abstract boolean isDead();
     public abstract void moveTowards(float speed, Player player);
