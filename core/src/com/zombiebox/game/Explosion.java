@@ -9,6 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 public class Explosion extends Sprite {
 
     public Explosion() {
-        super(new Texture(""));
+        super(new Texture("explosion.jpg"));
     }
 }

@@ -11,11 +11,15 @@ import java.util.ArrayList;
 public class EnemyBulletManager {
     private ArrayList<EnemyBullet> bulletList;
     private ArrayList<Rocket> rocketList;
+    private ArrayList<Explosion> explosionList;
+
     private Sprite m_world;
 
     public EnemyBulletManager(Sprite world) {
         bulletList = new ArrayList<>();
         rocketList = new ArrayList<>();
+        explosionList = new ArrayList<>();
+
         m_world = world;
     }
 
@@ -25,7 +29,10 @@ public class EnemyBulletManager {
 
     public void add(Rocket rocket) { rocketList.add(rocket); }
 
+    public void add(Explosion explosion) { explosionList.add(explosion); }
+
     public void update(PlayerManager playerManager) {
+        //handling bullets leaving the world
         for (int i = 0; i < bulletList.size(); ++i) {
             bulletList.get(i).updateBullet();
             if (!m_world.getBoundingRectangle().overlaps(bulletList.get(i).getBoundingRectangle())) {
@@ -34,10 +41,19 @@ public class EnemyBulletManager {
             }
         }
 
+        //handling rockets leaving the world
         for(int i = 0; i < rocketList.size(); ++i) {
             rocketList.get(i).updateRocket(playerManager.getActivePlayer());
             if (!m_world.getBoundingRectangle().overlaps(rocketList.get(i).getBoundingRectangle())) {
                 rocketList.remove(i);
+                --i;
+            }
+        }
+
+        //handling explosions leaving the world
+        for(int i = 0; i < explosionList.size(); ++i) {
+            if(!m_world.getBoundingRectangle().overlaps(explosionList.get(i).getBoundingRectangle())) {
+                explosionList.remove(i);
                 --i;
             }
         }
@@ -51,6 +67,10 @@ public class EnemyBulletManager {
         for(Rocket r : rocketList) {
             r.draw(batch);
         }
+
+        for(Explosion e : explosionList) {
+            e.draw(batch);
+        }
     }
 
     public ArrayList<EnemyBullet> getBulletList() {
@@ -58,5 +78,7 @@ public class EnemyBulletManager {
     }
 
     public ArrayList<Rocket> getRocketList() { return rocketList; }
+
+    public ArrayList<Explosion> getExplosionList() { return explosionList; }
 
 }
