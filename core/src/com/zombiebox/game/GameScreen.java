@@ -80,7 +80,7 @@ public class GameScreen extends Game implements Screen {
         bulletManager.update();
         enemyBulletManager.update();
         enemyManager.update(bulletManager, playerManager, enemyBulletManager);
-        healthBonusManager.update();
+        healthBonusManager.update(playerManager);
 
         m_basicSpawnTimer -= Gdx.graphics.getDeltaTime();
         m_bigSpawnTimer -= Gdx.graphics.getDeltaTime();

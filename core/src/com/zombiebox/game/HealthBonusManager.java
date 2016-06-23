@@ -12,22 +12,19 @@ import java.util.ArrayList;
 public class HealthBonusManager {
     private ArrayList<HealthBonus> healthList;
     private Sprite m_world;
-    private Player m_player;
-    private OrthographicCamera m_cam;
 
     public HealthBonusManager(Sprite world) {
         healthList = new ArrayList<>();
         m_world = world;
-        m_cam = new OrthographicCamera();
-        m_player = new Player(m_cam);
+
     }
 
     public void add(HealthBonus healthBonus) { healthList.add(healthBonus); }
 
-    public void update() {
+    public void update(PlayerManager playerManager) {
         for(int i = 0; i < healthList.size(); ++i) {
-            if(m_player.getBoundingRectangle().overlaps(healthList.get(i).getBoundingRectangle())) {
-                m_player.addHealth();
+            if(playerManager.getActivePlayer().getBoundingRectangle().overlaps(healthList.get(i).getBoundingRectangle())) {
+                playerManager.getActivePlayer().addHealth();
                 healthList.remove(i);
                 --i;
                 break;

@@ -26,7 +26,7 @@ public class ShootingEnemy extends Enemy {
     }
 
     public void updateEnemy(EnemyBulletManager enemyBulletManager) {
-        m_bulletConstant = Gdx.graphics.getDeltaTime() / 2;
+        m_bulletConstant = Gdx.graphics.getDeltaTime();
         m_bulletTimer = m_bulletTimer - m_bulletConstant;
         if(m_bulletTimer <= 0.0) {
             EnemyBullet b = new EnemyBullet(getX() + (getWidth() / 2f), getY(), getRotation());

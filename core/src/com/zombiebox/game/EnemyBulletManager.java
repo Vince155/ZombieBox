@@ -10,16 +10,20 @@ import java.util.ArrayList;
  */
 public class EnemyBulletManager {
     private ArrayList<EnemyBullet> bulletList;
+    private ArrayList<Rocket> rocketList;
     private Sprite m_world;
 
     public EnemyBulletManager(Sprite world) {
         bulletList = new ArrayList<>();
+        rocketList = new ArrayList<>();
         m_world = world;
     }
 
     public void add(EnemyBullet enemyBullet) {
         bulletList.add(enemyBullet);
     }
+
+    public void add(Rocket rocket) { rocketList.add(rocket); }
 
     public void update() {
         for (int i = 0; i < bulletList.size(); ++i) {
@@ -29,16 +33,30 @@ public class EnemyBulletManager {
                 --i;
             }
         }
+
+        for(int i = 0; i < rocketList.size(); ++i) {
+            rocketList.get(i).updateRocket();
+            if (!m_world.getBoundingRectangle().overlaps(rocketList.get(i).getBoundingRectangle())) {
+                rocketList.remove(i);
+                --i;
+            }
+        }
     }
 
     public void render(SpriteBatch batch) {
         for (EnemyBullet b : bulletList) {
             b.draw(batch);
         }
+
+        for(Rocket r : rocketList) {
+            r.draw(batch);
+        }
     }
 
     public ArrayList<EnemyBullet> getBulletList() {
         return bulletList;
     }
+
+    public ArrayList<Rocket> getRocketList() { return rocketList; }
 
 }
