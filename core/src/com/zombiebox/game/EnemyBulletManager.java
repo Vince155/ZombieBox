@@ -25,7 +25,7 @@ public class EnemyBulletManager {
 
     public void add(Rocket rocket) { rocketList.add(rocket); }
 
-    public void update() {
+    public void update(PlayerManager playerManager) {
         for (int i = 0; i < bulletList.size(); ++i) {
             bulletList.get(i).updateBullet();
             if (!m_world.getBoundingRectangle().overlaps(bulletList.get(i).getBoundingRectangle())) {
@@ -35,7 +35,7 @@ public class EnemyBulletManager {
         }
 
         for(int i = 0; i < rocketList.size(); ++i) {
-            rocketList.get(i).updateRocket();
+            rocketList.get(i).updateRocket(playerManager.getActivePlayer());
             if (!m_world.getBoundingRectangle().overlaps(rocketList.get(i).getBoundingRectangle())) {
                 rocketList.remove(i);
                 --i;

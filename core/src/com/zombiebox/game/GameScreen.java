@@ -78,7 +78,7 @@ public class GameScreen extends Game implements Screen {
     public void render(float delta) {
         playerManager.update(bulletManager);
         bulletManager.update();
-        enemyBulletManager.update();
+        enemyBulletManager.update(playerManager);
         enemyManager.update(bulletManager, playerManager, enemyBulletManager);
         healthBonusManager.update(playerManager);
 
@@ -95,7 +95,7 @@ public class GameScreen extends Game implements Screen {
             playerManager.getActivePlayer().getY() - height);
 
             enemyManager.add(new BasicEnemy(width, height));
-            if(distance < 30f) {
+            if(distance < 50f) {
                 enemyManager.remove(new BasicEnemy(width, height));
             }
             m_basicSpawnTimer = 1f;
@@ -106,7 +106,7 @@ public class GameScreen extends Game implements Screen {
             float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
                     playerManager.getActivePlayer().getY() - height);
             enemyManager.add(new BigEnemy(width, height));
-            if(distance < 30f) {
+            if(distance < 50f) {
                 enemyManager.remove(new BigEnemy(width, height));
             }
             m_bigSpawnTimer = 5f;
@@ -117,10 +117,10 @@ public class GameScreen extends Game implements Screen {
             float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
                     playerManager.getActivePlayer().getY() - height);
             enemyManager.add(new ShootingEnemy(width, height));
-            if(distance < 30f) {
+            if(distance < 50f) {
                 enemyManager.remove(new ShootingEnemy(width, height));
             }
-            m_shootingSpawnTimer = 10f;
+            m_shootingSpawnTimer = 6f;
         }
         if(m_healthTimer <= 0) {
             float width = MathUtils.random(0, 1000f);
