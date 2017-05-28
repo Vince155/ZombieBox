@@ -6,14 +6,14 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * Created by Vince on 2016-06-14.
  */
-public class ToughenedBigEnemy extends  Enemy {
+public class ToughenedBigEnemy extends Enemy {
     private float health;
     private float speed;
     public ToughenedBigEnemy(float xPos, float yPos) {
         super(new Texture("toughenedBigEnemy.png"));
         setPosition(xPos, yPos);
-        health = 15f;
-        speed = 25f;
+        health = 40f;
+        speed = 30f;
     }
 
     public void updateEnemy(EnemyBulletManager enemyBulletManager) {

@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 /**
- * Created by Vince on 2016-04-29.
+ * Created by Vince on 2016-06-23.
  */
-public class ShootingEnemy extends Enemy {
+public class LethalShootingEnemy extends Enemy {
     private float health;
     private float speed;
     private double m_bulletTimer;
@@ -16,10 +16,10 @@ public class ShootingEnemy extends Enemy {
     private Sprite world;
     private EnemyBulletManager m_enemyBulletManager;
 
-    public ShootingEnemy(float xPos, float yPos) {
+    public LethalShootingEnemy(float xPos, float yPos) {
         super(new Texture("shootingEnemy.png"));
         setPosition(xPos, yPos);
-        health = 10f;
+        health = 15f;
         speed = 40f;
         m_bulletTimer = 1.0;
         m_enemyBulletManager = new EnemyBulletManager(world);
@@ -31,7 +31,7 @@ public class ShootingEnemy extends Enemy {
         if(m_bulletTimer <= 0.0) {
             EnemyBullet b = new EnemyBullet(getX() + (getWidth() / 2f), getY(), getRotation());
             enemyBulletManager.add(b);
-            m_bulletTimer = 5;
+            m_bulletTimer = 2;
             Sound basicGunShot = Gdx.audio.newSound(Gdx.files.internal("gunshot.wav"));
             basicGunShot.play(0.01f);
         }

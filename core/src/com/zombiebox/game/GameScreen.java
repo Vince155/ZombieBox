@@ -61,7 +61,7 @@ public class GameScreen extends Game implements Screen {
 
         m_healthTimer = 20f;
 
-        m_levelTimer = 125f;
+        m_levelTimer = 70f;
 
         bulletManager = new BulletManager(m_mapSprite);
         enemyManager = new EnemyManager(m_mapSprite);
@@ -88,39 +88,39 @@ public class GameScreen extends Game implements Screen {
         m_levelTimer -= Gdx.graphics.getDeltaTime();
         m_healthTimer -= Gdx.graphics.getDeltaTime();
 
-        if (m_basicSpawnTimer <= 0) {
+        if (m_basicSpawnTimer <= 0 && m_levelTimer >= 5f) {
             float width = MathUtils.random(0, 1000f);
             float height = MathUtils.random(0, 1000f);
             float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
             playerManager.getActivePlayer().getY() - height);
 
             enemyManager.add(new BasicEnemy(width, height));
-            if(distance < 50f) {
+            if(distance < 100f) {
                 enemyManager.remove(new BasicEnemy(width, height));
             }
             m_basicSpawnTimer = 1f;
         }
-        if(m_bigSpawnTimer <= 0) {
+        if(m_bigSpawnTimer <= 0 && m_levelTimer >= 5f) {
             float width = MathUtils.random(0, 1000f);
             float height = MathUtils.random(0, 1000f);
             float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
                     playerManager.getActivePlayer().getY() - height);
             enemyManager.add(new BigEnemy(width, height));
-            if(distance < 50f) {
+            if(distance < 100f) {
                 enemyManager.remove(new BigEnemy(width, height));
             }
-            m_bigSpawnTimer = 5f;
+            m_bigSpawnTimer = 3f;
         }
-        if(m_shootingSpawnTimer <= 0) {
+        if(m_shootingSpawnTimer <= 0 && m_levelTimer >= 5f) {
             float width = MathUtils.random(0, 1000f);
             float height = MathUtils.random(0, 1000f);
             float distance = (float) Math.sqrt((playerManager.getActivePlayer().getX() - width) * (playerManager.getActivePlayer().getX() - width) +
                     playerManager.getActivePlayer().getY() - height);
             enemyManager.add(new ShootingEnemy(width, height));
-            if(distance < 50f) {
+            if(distance < 100f) {
                 enemyManager.remove(new ShootingEnemy(width, height));
             }
-            m_shootingSpawnTimer = 6f;
+            m_shootingSpawnTimer = 4f;
         }
         if(m_healthTimer <= 0) {
             float width = MathUtils.random(0, 1000f);

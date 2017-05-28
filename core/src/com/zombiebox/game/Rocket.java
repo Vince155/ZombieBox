@@ -11,7 +11,7 @@ public class Rocket extends Sprite {
     private float m_speed;
 
     public Rocket(float xPos, float yPos, float rotation) {
-        super(new Texture(""));
+        super(new Texture("rocket.png"));
         setX(xPos);
         setY(yPos);
         setRotation(rotation);

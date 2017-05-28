@@ -21,6 +21,8 @@ public class HealthBonusManager {
 
     public void add(HealthBonus healthBonus) { healthList.add(healthBonus); }
 
+    public void remove(HealthBonus healthBonus) { healthList.remove(healthBonus); }
+
     public void update(PlayerManager playerManager) {
         for(int i = 0; i < healthList.size(); ++i) {
             if(playerManager.getActivePlayer().getBoundingRectangle().overlaps(healthList.get(i).getBoundingRectangle())) {
